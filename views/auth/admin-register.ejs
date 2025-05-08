@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Admin Registration</title>
+    </head>
+    <body>
+        <div class="auth-container">
+            <h2>Admin Registration</h2>
+            <form id="adminRegisterForm" class="auth-form">
+                <input
+                    type="text"
+                    name="name"
+                    placeholder="Full Name"
+                    required
+                />
+                <input type="email" name="email" placeholder="Email" required />
+                <input
+                    type="password"
+                    name="password"
+                    placeholder="Password"
+                    required
+                />
+                <input
+                    type="text"
+                    name="adminCode"
+                    placeholder="Admin Code"
+                    required
+                />
+                <button type="submit">Register as Admin</button>
+            </form>
+            <p>Already have an account? <a href="/">Login</a></p>
+        </div>
+        <script src="/js/admin-register.js"></script>
+    </body>
+</html>

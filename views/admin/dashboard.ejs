@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Admin Dashboard</title>
+        <style>
+            .adhaar-proof {
+                margin: 15px 0;
+                padding: 10px;
+                background: #f5f5f5;
+                border-radius: 5px;
+            }
+            .adhaar-proof img {
+                max-width: 200px;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+                padding: 5px;
+            }
+            .adhaar-proof a {
+                display: inline-block;
+                margin-top: 5px;
+                color: blue;
+                text-decoration: underline;
+            }
+        </style>
+    </head>
+    <body>
+        <nav>
+            <h1>Admin Dashboard</h2>
+            <button onclick="logout()">Logout</button>
+        </nav>
+
+        <div class="container">
+            <!-- Stats Section -->
+            <div class="stats-container">
+                <div class="stat-card">
+                    <h3>Total Rooms</h3>
+                    <p id="totalRooms">0</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Occupied Rooms</h3>
+                    <p id="occupiedRooms">0</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Active Bookings</h3>
+                    <p id="activeBookings">0</p>
+                </div>
+            </div>
+
+            <!-- Room Management Section -->
+            <div class="room-management">
+                <h1>Room Management</h3>
+                <form id="addRoomForm">
+                    <input
+                        type="text"
+                        name="roomNumber"
+                        placeholder="Room Number"
+                        required
+                    />
+                    <input
+                        type="text"
+                        name="type"
+                        placeholder="Room Type"
+                        required
+                    />
+                    <input
+                        type="number"
+                        name="price"
+                        placeholder="Price"
+                        required
+                    />
+                    <button type="submit">Add Room</button>
+                </form>
+
+                <div id="roomsList">
+                    <!-- Rooms will be listed here -->
+                </div>
+            </div>
+
+            <!-- Current Bookings Section -->
+            <div class="bookings-view">
+                <h1>Current Bookings</h3>
+                <div id="currentBookingsList">
+                    <!-- Bookings will be listed here -->
+                </div>
+            </div>
+        </div>
+
+        <script src="/js/admin-dashboard.js"></script>
+    </body>
+</html>

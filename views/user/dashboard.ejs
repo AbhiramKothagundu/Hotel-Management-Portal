@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>User Dashboard</title>
+    </head>
+    <body>
+        <nav>
+            <h2>User Dashboard</h2>
+            <button onclick="logout()">Logout</button>
+        </nav>
+
+        <div class="container">
+            <div class="available-rooms">
+                <h3>Available Rooms</h3>
+                <div id="roomsList">
+                    <!-- Available rooms will be listed here -->
+                </div>
+            </div>
+
+            <div class="my-bookings">
+                <h3>My Bookings</h3>
+                <div id="myBookingsList">
+                    <!-- User's bookings will be listed here -->
+                </div>
+            </div>
+        </div>
+
+        <script src="/js/user-dashboard.js"></script>
+    </body>
+</html>
