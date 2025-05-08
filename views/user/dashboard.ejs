@@ -2,26 +2,29 @@
 <html>
     <head>
         <title>User Dashboard</title>
+        <link rel="stylesheet" href="/css/style.css" />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+        />
     </head>
     <body>
         <nav>
-            <h2>User Dashboard</h2>
-            <button onclick="logout()">Logout</button>
+            <h2><i class="fas fa-user"></i> User Dashboard</h2>
+            <button onclick="logout()">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
         </nav>
 
         <div class="container">
             <div class="available-rooms">
-                <h3>Available Rooms</h3>
-                <div id="roomsList">
-                    <!-- Available rooms will be listed here -->
-                </div>
+                <h2><i class="fas fa-door-open"></i> Available Rooms</h2>
+                <div id="roomsList"></div>
             </div>
 
             <div class="my-bookings">
-                <h3>My Bookings</h3>
-                <div id="myBookingsList">
-                    <!-- User's bookings will be listed here -->
-                </div>
+                <h2><i class="fas fa-calendar-check"></i> My Bookings</h2>
+                <div id="myBookingsList"></div>
             </div>
         </div>
 
