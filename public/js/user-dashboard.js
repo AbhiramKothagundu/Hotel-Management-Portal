@@ -1,6 +1,16 @@
+function checkAuth() {
+    const token = localStorage.getItem("token");
+    if (!token) {
+        window.location.href = "/?error=auth_required";
+        return false;
+    }
+    return true;
+}
+
 const token = localStorage.getItem("token");
 
 async function fetchAvailableRooms() {
+    if (!checkAuth()) return;
     const query = `
         query {
             availableRooms {
@@ -44,6 +54,7 @@ async function fetchAvailableRooms() {
 }
 
 async function fetchMyBookings() {
+    if (!checkAuth()) return;
     const query = `
         query {
             myBookings {
@@ -177,6 +188,7 @@ function renderMyBookings(bookings) {
 }
 
 async function bookRoom(roomId) {
+    if (!checkAuth()) return;
     const form = document.createElement("form");
     form.innerHTML = `
         <div class="booking-form">
@@ -260,6 +272,7 @@ async function bookRoom(roomId) {
 }
 
 async function cancelBooking(bookingId) {
+    if (!checkAuth()) return;
     if (!confirm("Are you sure you want to cancel this booking?")) return;
 
     const mutation = `

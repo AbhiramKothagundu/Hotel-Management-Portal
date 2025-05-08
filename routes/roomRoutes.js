@@ -32,9 +32,9 @@ const server = new ApolloServer({
     typeDefs,
     resolvers,
     context: ({ req }) => {
-        // Skip auth check for login and register mutations
         if (!req.body.query) return {};
 
+        // Skip auth check for login and register operations
         const operationType = req.body.query.toLowerCase();
         if (
             operationType.includes("loginuser") ||
@@ -44,22 +44,22 @@ const server = new ApolloServer({
             return {};
         }
 
-        // Check auth for other operations
-        const token = req.headers.authorization?.split(" ")[1];
-        if (!token) {
+        // Ensure user is authenticated for all other operations
+        if (!req.user) {
             throw new Error("Authentication required");
         }
 
-        try {
-            const user = jwt.verify(
-                token,
-                process.env.JWT_SECRET || "your_super_secret_key_here"
-            );
-            return { user };
-        } catch (err) {
-            console.error("Token verification error:", err); // Debug log
-            throw new Error("Invalid token");
+        // For admin-only operations, check role
+        if (
+            (operationType.includes("addroom") ||
+                operationType.includes("updateroom") ||
+                operationType.includes("deleteroom")) &&
+            req.user.role !== "admin"
+        ) {
+            throw new Error("Admin access required");
         }
+
+        return { user: req.user };
     },
     formatError: (error) => {
         console.error("GraphQL Error:", error);

@@ -19,6 +19,23 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
+app.use(loggerMiddleware);
+
+// Auth middleware for all routes except login and register
+app.use((req, res, next) => {
+    const publicPaths = ["/", "/register", "/register/admin", "/graphql"];
+    const isPublicPath = publicPaths.some((path) => req.path.startsWith(path));
+    const isAuthOperation =
+        (req.path === "/graphql" && req.body?.query?.includes("login")) ||
+        req.body?.query?.includes("register");
+
+    if (isPublicPath && (req.path !== "/graphql" || isAuthOperation)) {
+        return next();
+    }
+
+    authMiddleware(req, res, next);
+});
+
 app.use(
     session({
         secret: process.env.SESSION_SECRET || "secret_key",
@@ -27,7 +44,6 @@ app.use(
         cookie: { secure: process.env.NODE_ENV === "production" },
     })
 );
-app.use(loggerMiddleware);
 
 // Create uploads directory if it doesn't exist
 const uploadsDir = path.join(__dirname, "public", "uploads");

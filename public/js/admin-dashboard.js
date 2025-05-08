@@ -1,8 +1,24 @@
+function checkAdminAuth() {
+    const token = localStorage.getItem("token");
+    if (!token) {
+        window.location.href = "/?error=auth_required";
+        return false;
+    }
+
+    const user = JSON.parse(atob(token.split(".")[1]));
+    if (user.role !== "admin") {
+        window.location.href = "/user/dashboard";
+        return false;
+    }
+    return true;
+}
+
 const token = localStorage.getItem("token");
 
 let currentRooms = []; // Add this at the top to store rooms data globally
 
 async function fetchDashboardStats() {
+    if (!checkAdminAuth()) return;
     const query = `
         query {
             rooms {
@@ -111,6 +127,7 @@ function renderCurrentBookings(bookings) {
 }
 
 async function fetchRooms() {
+    if (!checkAdminAuth()) return;
     const query = `
         query {
             rooms {
@@ -175,6 +192,7 @@ function renderRooms(rooms) {
 }
 
 async function addRoom(event) {
+    if (!checkAdminAuth()) return;
     event.preventDefault();
     const formData = new FormData(event.target);
 
@@ -219,6 +237,7 @@ async function addRoom(event) {
 }
 
 async function updateRoom(roomId) {
+    if (!checkAdminAuth()) return;
     const room = currentRooms.find((r) => r.id === roomId);
     if (!room) {
         alert("Room not found!");
@@ -316,6 +335,7 @@ async function updateRoom(roomId) {
 }
 
 async function deleteRoom(roomId) {
+    if (!checkAdminAuth()) return;
     if (!confirm("Are you sure you want to delete this room?")) return;
 
     const mutation = `
